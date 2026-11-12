@@ -1,0 +1,11 @@
+services:
+  bot:
+    build: .
+    restart: unless-stopped   # riparte da solo dopo un errore o un riavvio del server
+    init: true
+    shm_size: "512mb"         # memoria condivisa per Chromium
+    env_file: .env            # contiene BOT_TOKEN
+    environment:
+      DB_PATH: /data/bot.db   # ha la precedenza sul valore scritto in .env
+    volumes:
+      - ./data:/data          # il database resta sul server, fuori dal container
